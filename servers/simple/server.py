@@ -77,7 +77,7 @@ class HttpUriRecognitionServicer(ai_http_uri_recognition_pb2_grpc.HttpUriRecogni
 
         There will always be a User service, its in topology, but it will not call fetchAllPatterns
         """
-        print(f'> Received feedRawData request for service {request.service}, url count: {len(request.urls)}')
+        print(f'> Received feedRawData request for service {request.service}, test')
         if request.service == 'User':
             # It should not be called
             return Empty()

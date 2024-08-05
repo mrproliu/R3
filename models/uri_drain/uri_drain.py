@@ -29,6 +29,9 @@ class LogCluster:  # TODO Modified:: Changed to URICluster
         # or http(s)://user:password@www.domain.top_level_domain
         # REASONING:: domain can only appear in the first two tokens, so whenever a dot appears, it must be a domain?
         # Another part of domain handling is done in create_template when they are hiding behind http(s)://
+        if len(self.log_template_tokens) == 0:
+            return '/'
+
         first_token = self.log_template_tokens[0]
         if ':' in first_token:  # It's a URI scheme!
             scheme = first_token

@@ -246,8 +246,6 @@ class DrainBase:
             self.clusters_counter += 1
             cluster_id = self.clusters_counter
             match_cluster = LogCluster(content_tokens, cluster_id)
-            if len(content_tokens) == 0:
-                print(f'-------1found empty tokens: {cluster_id}, real content: {content}')
             self.id_to_cluster[cluster_id] = match_cluster
             self.add_seq_to_prefix_tree(self.root_node, match_cluster)
             update_type = "cluster_created"
@@ -264,8 +262,6 @@ class DrainBase:
                 self.clusters_counter += 1
                 cluster_id = self.clusters_counter
                 match_cluster = LogCluster(content_tokens, cluster_id)
-                if len(content_tokens) == 0:
-                    print(f'-------2found empty tokens: {cluster_id}, real content: {content}')
                 self.id_to_cluster[cluster_id] = match_cluster
                 self.add_seq_to_prefix_tree(self.root_node, match_cluster)
                 match_cluster.size -= 1

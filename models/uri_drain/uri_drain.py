@@ -30,7 +30,9 @@ class LogCluster:  # TODO Modified:: Changed to URICluster
         # REASONING:: domain can only appear in the first two tokens, so whenever a dot appears, it must be a domain?
         # Another part of domain handling is done in create_template when they are hiding behind http(s)://
         if len(self.log_template_tokens) == 0:
-            return '/'
+            print(f'------getting template for cluster({self.cluster_id}) getting empty tokens')
+            # TODO: check which cluster have no tokens
+            return ''
 
         first_token = self.log_template_tokens[0]
         if ':' in first_token:  # It's a URI scheme!
@@ -244,6 +246,8 @@ class DrainBase:
             self.clusters_counter += 1
             cluster_id = self.clusters_counter
             match_cluster = LogCluster(content_tokens, cluster_id)
+            if len(content_tokens) == 0:
+                print(f'-------1found empty tokens: {cluster_id}, real content: {content}')
             self.id_to_cluster[cluster_id] = match_cluster
             self.add_seq_to_prefix_tree(self.root_node, match_cluster)
             update_type = "cluster_created"
@@ -260,6 +264,8 @@ class DrainBase:
                 self.clusters_counter += 1
                 cluster_id = self.clusters_counter
                 match_cluster = LogCluster(content_tokens, cluster_id)
+                if len(content_tokens) == 0:
+                    print(f'-------2found empty tokens: {cluster_id}, real content: {content}')
                 self.id_to_cluster[cluster_id] = match_cluster
                 self.add_seq_to_prefix_tree(self.root_node, match_cluster)
                 match_cluster.size -= 1
